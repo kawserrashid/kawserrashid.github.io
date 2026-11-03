@@ -1,5 +1,13 @@
 # Roadmap, definition of done, QA
 
+## Progress log
+| Date | Step | Status | Notes |
+|---|---|---|---|
+| 2026-11-04 | 0 Setup | ✅ done | npm, git multi-account config, GitHub repo, docs pushed |
+| — | 1 Foundation | ⏭ next | awaiting go-ahead |
+
+Open PM decisions: `@lucide/astro` dependency (needed by step 2); schema additions in `03-content-schema.md` (default: keep only `coverAlt`).
+
 ## Milestones
 Each step ends with: summary of what changed + why → PM review → go-ahead.
 
