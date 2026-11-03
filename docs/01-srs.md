@@ -1,8 +1,8 @@
 # Software Requirements Specification (SRS)
 Version 0.1 · 2026-11-03 · Owner: Kawser (PM) · Dev: Claude
 
-Source of truth for *what* we build. Design detail lives in the hand-off
-(`../kawser-site-handoff/docs/`); this file does not repeat it.
+Source of truth for *what* we build. Visual design: `05-design-system.md`.
+Page contents: `06-pages.md`.
 
 ## 1. Purpose
 A static personal research site. Success test: an advisor opening it
