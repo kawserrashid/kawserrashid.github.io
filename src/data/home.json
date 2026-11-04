@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "sub": "By day, I build backend systems as a software engineer. Beyond work, I study computer vision, explainable AI, and XR, finding questions worth asking and working toward answers. I believe good solutions come from understanding the theory first and designing with care.",
+    "primaryButton": "Read the research",
+    "secondaryButton": "CV & publications"
+  },
+  "sketchBoard": {
+    "title": "My Sketch Board",
+    "intro": "A growing collection of research write-ups, experiments, and reading notes. Some pieces are finished; many are still growing, and each one is labelled so you know which."
+  },
+  "research": {
+    "title": "Research write-ups",
+    "hint": "Question → method → results → what I learned"
+  },
+  "notes": {
+    "title": "Notes",
+    "hint": "Experiments and things I don't fully understand yet"
+  },
+  "paperNotes": {
+    "title": "Paper notes",
+    "hint": "Short takes on papers I'm reading"
+  },
+  "publications": {
+    "title": "Publications",
+    "cvLink": "Full CV →"
+  },
+  "now": {
+    "title": "Now"
+  },
+  "cta": {
+    "title": "Want to follow along?",
+    "text": "Reach out about PhD opportunities and research collaborations.",
+    "button": "Email me"
+  }
+}

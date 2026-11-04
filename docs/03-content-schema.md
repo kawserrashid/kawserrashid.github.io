@@ -109,3 +109,6 @@ File names (slugs) are stable IDs, so backlinks between write-ups can be added l
 - `profile.json` is validated by `src/lib/profile.ts` (not a collection).
 - v1 has no individual write-up pages, so Home cards link to `/research/`
   and notes link to `/notes/`.
+- `src/data/home.json` holds all fixed Home page copy (hero line, section
+  titles and hints, CTA, button labels); validated by `src/lib/home.ts`.
+  Links (URLs) stay in code. Other pages will follow the same pattern.

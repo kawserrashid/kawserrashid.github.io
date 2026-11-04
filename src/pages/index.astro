@@ -9,6 +9,7 @@ import PublicationList from '../components/PublicationList.astro';
 import { profile } from '../lib/profile';
 import { getResearch, getNotes, getPaperNotes } from '../lib/content';
 import { formatMonth } from '../lib/format';
+import { home } from '../lib/home'; // all copy on this page lives in src/data/home.json
 
 const research = await getResearch(3);
 const notes = await getNotes(5);
@@ -27,13 +28,10 @@ const taglineRest = profile.tagline.startsWith(firstName)
     <h1>
       {taglineRest !== null ? <><strong>{firstName}</strong>{taglineRest}</> : profile.tagline}
     </h1>
-    <p class="hero-sub">
-      Prospective PhD student in computer vision, explainable AI, and XR. Backend software
-      engineer by day. MS in Computer Science (Data Science), East West University, Dhaka.
-    </p>
+    <p class="hero-sub">{home.hero.sub}</p>
     <div class="actions">
-      <Button href="/research/">Read the research</Button>
-      <Button href="/cv/" variant="outline">CV &amp; publications</Button>
+      <Button href="/research/">{home.hero.primaryButton}</Button>
+      <Button href="/cv/" variant="outline">{home.hero.secondaryButton}</Button>
     </div>
   </section>
 
@@ -41,11 +39,8 @@ const taglineRest = profile.tagline.startsWith(firstName)
   <section class="container" aria-labelledby="sketch-title">
     <div class="sketch">
       <div class="sketch-intro">
-        <h2 id="sketch-title" class="section-title">My Sketch Board</h2>
-        <p class="secondary">
-          A growing collection of research write-ups, experiments, and reading notes. Some pieces
-          are finished; many are still growing, and each one is labelled so you know which.
-        </p>
+        <h2 id="sketch-title" class="section-title">{home.sketchBoard.title}</h2>
+        <p class="secondary">{home.sketchBoard.intro}</p>
       </div>
       <StatusLegend />
     </div>
@@ -54,8 +49,8 @@ const taglineRest = profile.tagline.startsWith(firstName)
   <!-- 3. Research write-ups -->
   <section class="container research" aria-labelledby="research-title">
     <div class="research-head">
-      <h3 id="research-title" class="sub-title">Research write-ups</h3>
-      <p class="hint">Question → method → results → what I learned</p>
+      <h3 id="research-title" class="sub-title">{home.research.title}</h3>
+      <p class="hint">{home.research.hint}</p>
     </div>
     <div class="cards">
       {research.map((entry) => <ResearchCard entry={entry} href="/research/" />)}
@@ -65,8 +60,8 @@ const taglineRest = profile.tagline.startsWith(firstName)
   <!-- 4. Notes + Paper notes -->
   <section class="container two-col lists">
     <div class="stack" aria-labelledby="notes-title">
-      <h3 id="notes-title" class="sub-title">Notes</h3>
-      <p class="hint">Experiments and things I don't fully understand yet</p>
+      <h3 id="notes-title" class="sub-title">{home.notes.title}</h3>
+      <p class="hint">{home.notes.hint}</p>
       <ul class="rows">
         {notes.map((n) => (
           <li class="row">
@@ -77,8 +72,8 @@ const taglineRest = profile.tagline.startsWith(firstName)
       </ul>
     </div>
     <div class="stack" aria-labelledby="papers-title">
-      <h3 id="papers-title" class="sub-title">Paper notes</h3>
-      <p class="hint">Short takes on papers I'm reading</p>
+      <h3 id="papers-title" class="sub-title">{home.paperNotes.title}</h3>
+      <p class="hint">{home.paperNotes.hint}</p>
       <ul class="rows">
         {paperNotes.map((p) => (
           <li class="row column">
@@ -94,12 +89,12 @@ const taglineRest = profile.tagline.startsWith(firstName)
   <div class="band">
     <div class="container two-col">
       <section class="stack" aria-labelledby="pubs-title">
-        <h2 id="pubs-title" class="sub-title">Publications</h2>
+        <h2 id="pubs-title" class="sub-title">{home.publications.title}</h2>
         <PublicationList />
-        <a class="more" href="/cv/">Full CV →</a>
+        <a class="more" href="/cv/">{home.publications.cvLink}</a>
       </section>
       <section class="stack" aria-labelledby="now-title">
-        <h2 id="now-title" class="sub-title">Now</h2>
+        <h2 id="now-title" class="sub-title">{home.now.title}</h2>
         {profile.now.text.map((t) => <p class="prose">{t}</p>)}
         <p class="meta">Updated {formatMonth(profile.now.updated)}</p>
       </section>
@@ -109,10 +104,10 @@ const taglineRest = profile.tagline.startsWith(firstName)
   <!-- 6. Closing call to action -->
   <section class="container cta" aria-labelledby="cta-title">
     <div>
-      <h2 id="cta-title" class="cta-title">Want to follow along?</h2>
-      <p class="secondary">Reach out about PhD opportunities and collaborations.</p>
+      <h2 id="cta-title" class="cta-title">{home.cta.title}</h2>
+      <p class="secondary">{home.cta.text}</p>
     </div>
-    <Button href={`mailto:${profile.email}`}>Email me</Button>
+    <Button href={`mailto:${profile.email}`}>{home.cta.button}</Button>
   </section>
 </BaseLayout>
 
