@@ -9,7 +9,6 @@ import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import { getResearch } from '../../lib/content';
-import { formatDate } from '../../lib/format';
 import { researchPage } from '../../lib/research';
 
 export const getStaticPaths = (async () => {
@@ -21,7 +20,8 @@ interface Props {
   entry: CollectionEntry<'research'>;
 }
 const { entry } = Astro.props;
-const { title, summary, topic, status, date, cover, coverAlt, code, demo } = entry.data;
+// `date` is still used for sorting, but not shown yet (PM decision 2026-11-04).
+const { title, summary, topic, status, cover, coverAlt, code, demo } = entry.data;
 const { Content } = await render(entry); // Markdown body → HTML component
 const labels = researchPage.writeupPage;
 ---
@@ -32,11 +32,13 @@ const labels = researchPage.writeupPage;
       <StatusBadge status={status} topic={topic} caps />
       <h1>{title}</h1>
       <p class="summary">{summary}</p>
-      <p class="meta">
-        {labels.planted} <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
-        {code && <> · <a href={code}>{labels.codeLink}</a></>}
-        {demo && <> · <a href={demo}>{labels.demoLink}</a></>}
-      </p>
+      {(code || demo) && (
+        <p class="meta">
+          {code && <a href={code}>{labels.codeLink}</a>}
+          {code && demo && ' · '}
+          {demo && <a href={demo}>{labels.demoLink}</a>}
+        </p>
+      )}
     </header>
 
     {cover && (
