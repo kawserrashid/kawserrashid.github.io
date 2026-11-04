@@ -1,0 +1,69 @@
+---
+// Publications grouped (conference, then manuscripts & thesis) with continuous
+// numbering. Kawser's name is bolded automatically (FR-08). Used on Home and CV.
+import { getPublicationGroups, type NumberedPublication } from '../lib/content';
+import { pubStatusLabel } from '../lib/format';
+import { profile } from '../lib/profile';
+
+const groups = await getPublicationGroups();
+// The <li> markup below stays on one line on purpose: line breaks between
+// {…} expressions become spaces in HTML ("Rashid ." instead of "Rashid.").
+
+const citation = (p: NumberedPublication) => {
+  switch (p.type) {
+    case 'conference':
+      return `In Proceedings of ${p.venue}, ${p.year}.`;
+    case 'manuscript':
+      return `${pubStatusLabel(String(p.status))}.`;
+    case 'thesis':
+      return `MS Thesis, ${p.venue}, ${p.year}.`;
+  }
+};
+---
+
+<div class="publications">
+  {groups.map((group) => (
+    <>
+      <p class="group-label">{group.label}</p>
+      <ol start={group.items[0].number}>
+        {group.items.map((p) => (
+          <li>{p.authors.map((a, i) => <>{i > 0 && ', '}{a === profile.name ? <strong>{a}</strong> : a}</>)}. {p.pdf ? <a href={p.pdf}>{p.title}</a> : p.title}. <em>{citation(p)}</em>{(p.pdf || p.doi) && <span class="links"> {p.pdf && <a href={p.pdf}>PDF</a>}{p.pdf && p.doi && ' · '}{p.doi && <a href={`https://doi.org/${p.doi}`}>DOI</a>}</span>}</li>
+        ))}
+      </ol>
+    </>
+  ))}
+</div>
+
+<style>
+  .publications {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .group-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-label);
+  }
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding-left: 22px;
+    font-size: 1.125rem;
+    color: var(--color-text-prose);
+  }
+  strong {
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  .links {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+</style>

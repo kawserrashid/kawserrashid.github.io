@@ -1,0 +1,62 @@
+---
+// One research write-up. The whole card is a single link.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import StatusBadge from './StatusBadge.astro';
+
+interface Props {
+  entry: CollectionEntry<'research'>;
+  href: string;
+}
+const { entry, href } = Astro.props;
+const { title, summary, topic, status, cover, coverAlt } = entry.data;
+---
+
+<a class="card" href={href}>
+  {cover ? (
+    <Image class="media" src={cover} alt={coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 1000px) 360px, 100vw" />
+  ) : (
+    <div class="media placeholder">[Illustration or demo GIF]</div>
+  )}
+  <StatusBadge status={status} topic={topic} caps />
+  <h4>{title}</h4>
+  <p>{summary}</p>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: var(--color-text-body);
+    text-decoration: none;
+  }
+  .media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+    background: var(--color-raised);
+  }
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    color: var(--color-text-label);
+  }
+  h4 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--color-text-heading);
+  }
+  p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+  }
+  .card:hover h4 {
+    color: var(--color-teal-hover);
+  }
+</style>

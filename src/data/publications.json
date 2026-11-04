@@ -1,0 +1,36 @@
+[
+  {
+    "id": "conference-1",
+    "type": "conference",
+    "title": "[Paper title]",
+    "authors": ["Kawser Rashid", "[Co-authors]"],
+    "venue": "[Conference]",
+    "year": "[Year]"
+  },
+  {
+    "id": "manuscript-1",
+    "type": "manuscript",
+    "title": "[Manuscript title]",
+    "authors": ["Kawser Rashid", "[Co-authors]"],
+    "venue": "[Venue]",
+    "year": "[Year]",
+    "status": "[Under review / In preparation]"
+  },
+  {
+    "id": "manuscript-2",
+    "type": "manuscript",
+    "title": "[Manuscript title]",
+    "authors": ["Kawser Rashid", "[Co-authors]"],
+    "venue": "[Venue]",
+    "year": "[Year]",
+    "status": "[In preparation]"
+  },
+  {
+    "id": "ms-thesis",
+    "type": "thesis",
+    "title": "[MS thesis title]",
+    "authors": ["Kawser Rashid"],
+    "venue": "East West University",
+    "year": "[Year]"
+  }
+]

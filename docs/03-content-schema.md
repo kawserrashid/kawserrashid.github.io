@@ -96,3 +96,16 @@ year) happen in `src/lib/`, not in the data.
 4. `updated` date on research/notes — shows a piece is maintained, not abandoned.
 
 File names (slugs) are stable IDs, so backlinks between write-ups can be added later without a schema change.
+
+## Implementation notes (step 2, 2026-11-04)
+- **Placeholders:** fields typed as number/enum/url/email also accept a
+  `[bracketed]` string (`orPlaceholder` in `src/lib/schema.ts`), so sample
+  content builds without inventing facts. Replace them as facts arrive.
+- `research.cover` is **optional** until real images exist; the card shows
+  an `[Illustration or demo GIF]` slot. `coverAlt` is required whenever
+  `cover` is set.
+- `publications.json` entries carry an `id` (required by Astro's `file()` loader).
+- `profile.now.text` is a **list of paragraphs**, not one string.
+- `profile.json` is validated by `src/lib/profile.ts` (not a collection).
+- v1 has no individual write-up pages, so Home cards link to `/research/`
+  and notes link to `/notes/`.

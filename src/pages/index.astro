@@ -1,37 +1,293 @@
 ---
-// TEMPORARY smoke-test page for step 1. Replaced by the real Home in step 2.
+// Home (docs/06-pages.md § Home, FR-03).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import profile from '../data/profile.json';
+import Button from '../components/Button.astro';
+import StatusLegend from '../components/StatusLegend.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+import PublicationList from '../components/PublicationList.astro';
+import { profile } from '../lib/profile';
+import { getResearch, getNotes, getPaperNotes } from '../lib/content';
+import { formatMonth } from '../lib/format';
+
+const research = await getResearch(3);
+const notes = await getNotes(5);
+const paperNotes = await getPaperNotes(5);
+
+// The tagline starts with the first name, which is highlighted in olive.
+const firstName = profile.name.split(' ')[0];
+const taglineRest = profile.tagline.startsWith(firstName)
+  ? profile.tagline.slice(firstName.length)
+  : null;
 ---
 
 <BaseLayout title={profile.name} description={profile.tagline}>
-  <section class="container smoke">
-    <h1><strong>Kawser</strong> explores how people can understand and trust what vision models see.</h1>
-    <p>Foundation check: fonts, tokens, header and footer. [Temporary page]</p>
+  <!-- 1. Hero -->
+  <section class="container hero">
+    <h1>
+      {taglineRest !== null ? <><strong>{firstName}</strong>{taglineRest}</> : profile.tagline}
+    </h1>
+    <p class="hero-sub">
+      Prospective PhD student in computer vision, explainable AI, and XR. Backend software
+      engineer by day. MS in Computer Science (Data Science), East West University, Dhaka.
+    </p>
+    <div class="actions">
+      <Button href="/research/">Read the research</Button>
+      <Button href="/cv/" variant="outline">CV &amp; publications</Button>
+    </div>
+  </section>
+
+  <!-- 2. Sketch Board intro + legend -->
+  <section class="container" aria-labelledby="sketch-title">
+    <div class="sketch">
+      <div class="sketch-intro">
+        <h2 id="sketch-title" class="section-title">My Sketch Board</h2>
+        <p class="secondary">
+          A growing collection of research write-ups, experiments, and reading notes. Some pieces
+          are finished; many are still growing, and each one is labelled so you know which.
+        </p>
+      </div>
+      <StatusLegend />
+    </div>
+  </section>
+
+  <!-- 3. Research write-ups -->
+  <section class="container research" aria-labelledby="research-title">
+    <div class="research-head">
+      <h3 id="research-title" class="sub-title">Research write-ups</h3>
+      <p class="hint">Question → method → results → what I learned</p>
+    </div>
+    <div class="cards">
+      {research.map((entry) => <ResearchCard entry={entry} href="/research/" />)}
+    </div>
+  </section>
+
+  <!-- 4. Notes + Paper notes -->
+  <section class="container two-col lists">
+    <div class="stack" aria-labelledby="notes-title">
+      <h3 id="notes-title" class="sub-title">Notes</h3>
+      <p class="hint">Experiments and things I don't fully understand yet</p>
+      <ul class="rows">
+        {notes.map((n) => (
+          <li class="row">
+            <a href="/notes/">{n.data.title}</a>
+            <StatusBadge status={n.data.status} />
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="stack" aria-labelledby="papers-title">
+      <h3 id="papers-title" class="sub-title">Paper notes</h3>
+      <p class="hint">Short takes on papers I'm reading</p>
+      <ul class="rows">
+        {paperNotes.map((p) => (
+          <li class="row column">
+            <a href="/notes/">{p.data.paperTitle}</a>
+            <span class="meta">{p.data.venue}, {p.data.year}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Publications + Now, on a surface band -->
+  <div class="band">
+    <div class="container two-col">
+      <section class="stack" aria-labelledby="pubs-title">
+        <h2 id="pubs-title" class="sub-title">Publications</h2>
+        <PublicationList />
+        <a class="more" href="/cv/">Full CV →</a>
+      </section>
+      <section class="stack" aria-labelledby="now-title">
+        <h2 id="now-title" class="sub-title">Now</h2>
+        {profile.now.text.map((t) => <p class="prose">{t}</p>)}
+        <p class="meta">Updated {formatMonth(profile.now.updated)}</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- 6. Closing call to action -->
+  <section class="container cta" aria-labelledby="cta-title">
+    <div>
+      <h2 id="cta-title" class="cta-title">Want to follow along?</h2>
+      <p class="secondary">Reach out about PhD opportunities and collaborations.</p>
+    </div>
+    <Button href={`mailto:${profile.email}`}>Email me</Button>
   </section>
 </BaseLayout>
 
 <style>
-  .smoke {
+  /* Shared text styles */
+  .section-title {
+    font-size: var(--text-h2);
+    font-weight: 500;
+    color: var(--color-olive);
+  }
+  .sub-title {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 500;
+  }
+  .secondary {
+    max-width: 620px;
+    color: var(--color-text-secondary);
+  }
+  .hint {
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    color: var(--color-text-secondary);
+  }
+  .meta {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    color: var(--color-text-label);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text-prose);
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 48px;
+  }
+
+  /* 1. Hero */
+  .hero {
     display: flex;
     flex-direction: column;
     gap: 28px;
     padding-block: 88px 72px;
   }
-  h1 {
+  .hero h1 {
     max-width: 900px;
     font-size: var(--text-hero);
     font-weight: 400;
     letter-spacing: -0.01em;
   }
-  h1 strong {
+  .hero h1 strong {
     font-weight: 600;
     color: var(--color-olive);
   }
-  p {
+  .hero-sub {
     max-width: 680px;
     font-family: var(--font-sans);
     font-size: 1.0625rem;
+    line-height: 1.6;
     color: var(--color-text-secondary);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* 2. Sketch Board */
+  .sketch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 32px;
+    padding-block: 40px 48px;
+    border-top: 1px solid var(--color-border);
+  }
+  .sketch-intro {
+    flex: 1 1 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* 3. Research */
+  .research {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-block: 24px 56px;
+  }
+  .research-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 28px;
+  }
+
+  /* 4. Lists */
+  .lists {
+    padding-block: 32px 64px;
+  }
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 14px;
+    border-top: 1px solid var(--color-border);
+  }
+  .row.column {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .row a {
+    font-size: 1.25rem;
+    color: var(--color-text-heading);
+    text-decoration: none;
+  }
+  .row a:hover {
+    color: var(--color-teal-hover);
+    text-decoration: underline;
+  }
+  .row :global(.badge) {
+    flex-shrink: 0;
+  }
+
+  /* 5. Band */
+  .band {
+    background: var(--color-surface);
+    padding-block: 64px;
+  }
+  .more {
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 700;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+  }
+
+  /* 6. CTA */
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 64px;
+  }
+  .cta > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .cta-title {
+    font-size: 1.5rem;
+    font-weight: 400;
   }
 </style>

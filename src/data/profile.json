@@ -9,7 +9,10 @@
     "linkedin": "[linkedin-url]"
   },
   "now": {
-    "text": "[What Kawser is working on right now]",
+    "text": [
+      "[What Kawser is working on this month — e.g., reproducing a Grad-CAM stability experiment and reading about explanation faithfulness.]",
+      "Building data systems with Django and PostgreSQL as a backend engineer, and designing technology training for professional learners."
+    ],
     "updated": "2026-11"
   }
 }
