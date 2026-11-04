@@ -1,10 +1,10 @@
 ---
 // Research (docs/06-pages.md § Research, FR-13): publications first, then write-ups.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PublicationList from '../components/PublicationList.astro';
-import ResearchCard from '../components/ResearchCard.astro';
-import { getResearch } from '../lib/content';
-import { researchPage as page } from '../lib/research'; // copy lives in src/data/research.json
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationList from '../../components/PublicationList.astro';
+import ResearchCard from '../../components/ResearchCard.astro';
+import { getResearch } from '../../lib/content';
+import { researchPage as page } from '../../lib/research'; // copy lives in src/data/research.json
 
 const writeups = await getResearch();
 ---
@@ -30,7 +30,7 @@ const writeups = await getResearch();
       <p class="hint">{page.writeups.hint}</p>
     </div>
     <div class="cards">
-      {writeups.map((entry) => <ResearchCard entry={entry} href="/research/" />)}
+      {writeups.map((entry) => <ResearchCard entry={entry} headingLevel={3} />)}
     </div>
   </section>
 </BaseLayout>

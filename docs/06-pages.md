@@ -88,6 +88,13 @@ page (PM decision 2026-11-04).
    - Every published research write-up as a card, newest first, with
      status badge and topic. Drafts excluded.
 
+## Research write-up (`/research/<slug>/`)
+- ~800px reading column: status + topic, title, summary, "Planted"
+  date, Code / Demo links if set, cover image if set.
+- Markdown body (Question, Method, Results, What I learned), styled for
+  headings, lists, quotes, code and images.
+- "← All research" link at the end. Labels live in `research.json`.
+
 ## Placeholder pages
 - Sketch Board, Notes: title, one sentence,
   "coming soon". They exist so navigation never leads to a missing page.

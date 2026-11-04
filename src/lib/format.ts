@@ -10,6 +10,11 @@ export function formatMonth(yyyyMm: string) {
   });
 }
 
+/** Date → "4 November 2026" (UTC, so build machine timezone can't shift it). */
+export function formatDate(d: Date) {
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
 const pubStatusLabels: Record<string, string> = {
   'under-review': 'Under review',
   'in-preparation': 'In preparation',

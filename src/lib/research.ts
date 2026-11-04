@@ -9,6 +9,8 @@ const researchPageSchema = z.object({
   intro: text,
   publications: z.object({ title: text }),
   writeups: z.object({ title: text, hint: text }),
+  // Labels on each write-up's own page (/research/<slug>/).
+  writeupPage: z.object({ planted: text, codeLink: text, demoLink: text, backLink: text }),
 });
 
 export const researchPage = researchPageSchema.parse(raw);

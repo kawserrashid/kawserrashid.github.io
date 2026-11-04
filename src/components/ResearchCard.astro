@@ -1,14 +1,18 @@
 ---
-// One research write-up. The whole card is a single link.
+// One research write-up. The whole card is a single link to the write-up's page.
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import StatusBadge from './StatusBadge.astro';
+import { researchUrl } from '../lib/content';
 
 interface Props {
   entry: CollectionEntry<'research'>;
-  href: string;
+  /** Keeps the heading outline correct: h4 under an h3 section, h3 under an h2. */
+  headingLevel?: 3 | 4;
 }
-const { entry, href } = Astro.props;
+const { entry, headingLevel = 4 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+const href = researchUrl(entry);
 const { title, summary, topic, status, cover, coverAlt } = entry.data;
 ---
 
@@ -19,7 +23,7 @@ const { title, summary, topic, status, cover, coverAlt } = entry.data;
     <div class="media placeholder">[Illustration or demo GIF]</div>
   )}
   <StatusBadge status={status} topic={topic} caps />
-  <h4>{title}</h4>
+  <Heading class="title">{title}</Heading>
   <p>{summary}</p>
 </a>
 
@@ -46,7 +50,7 @@ const { title, summary, topic, status, cover, coverAlt } = entry.data;
     font-size: var(--text-small);
     color: var(--color-text-label);
   }
-  h4 {
+  .title {
     font-size: 1.5rem;
     line-height: 1.25;
     font-weight: 500;
@@ -56,7 +60,7 @@ const { title, summary, topic, status, cover, coverAlt } = entry.data;
     font-size: 1.125rem;
     color: var(--color-text-secondary);
   }
-  .card:hover h4 {
+  .card:hover .title {
     color: var(--color-teal-hover);
   }
 </style>

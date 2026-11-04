@@ -10,6 +10,9 @@ export async function getResearch(limit?: number) {
   return items.sort((a, b) => newestFirst(a.data.date, b.data.date)).slice(0, limit);
 }
 
+/** URL of a write-up's own page (FR-14). The file name is the slug. */
+export const researchUrl = (entry: CollectionEntry<'research'>) => `/research/${entry.id}/`;
+
 /** Published notes, newest first. */
 export async function getNotes(limit?: number) {
   const items = await getCollection('notes', ({ data }) => !data.draft);

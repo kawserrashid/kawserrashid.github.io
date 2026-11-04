@@ -1,0 +1,165 @@
+---
+// One page per research write-up: /research/<slug>/ (FR-14).
+// [slug] is a URL parameter, like path('research/<slug>/') in Django. Because
+// the site is static, getStaticPaths() lists every slug at build time and Astro
+// writes one HTML file per entry.
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import { getResearch } from '../../lib/content';
+import { formatDate } from '../../lib/format';
+import { researchPage } from '../../lib/research';
+
+export const getStaticPaths = (async () => {
+  const entries = await getResearch(); // drafts are already excluded → no page
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: CollectionEntry<'research'>;
+}
+const { entry } = Astro.props;
+const { title, summary, topic, status, date, cover, coverAlt, code, demo } = entry.data;
+const { Content } = await render(entry); // Markdown body → HTML component
+const labels = researchPage.writeupPage;
+---
+
+<BaseLayout title={title} description={summary}>
+  <article class="container article">
+    <header class="head">
+      <StatusBadge status={status} topic={topic} caps />
+      <h1>{title}</h1>
+      <p class="summary">{summary}</p>
+      <p class="meta">
+        {labels.planted} <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+        {code && <> · <a href={code}>{labels.codeLink}</a></>}
+        {demo && <> · <a href={demo}>{labels.demoLink}</a></>}
+      </p>
+    </header>
+
+    {cover && (
+      <Image class="cover" src={cover} alt={coverAlt ?? ''} widths={[800, 1600]} sizes="(min-width: 850px) 800px, 100vw" />
+    )}
+
+    <div class="body">
+      <Content />
+    </div>
+
+    <footer class="foot">
+      <a href="/research/">{labels.backLink}</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: calc(var(--width-prose) + 2 * var(--gutter));
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-block: 72px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  h1 {
+    font-size: var(--text-hero);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .summary {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+  }
+  .meta {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    color: var(--color-text-label);
+  }
+  .meta a {
+    font-weight: 700;
+  }
+
+  .cover {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+  }
+
+  /* Markdown body. :global() reaches into HTML that <Content /> renders. */
+  .body {
+    color: var(--color-text-prose);
+    border-top: 1px solid var(--color-border);
+    padding-top: 40px;
+  }
+  .body :global(> * + *) {
+    margin-top: 1.1em;
+  }
+  .body :global(h2) {
+    margin-top: 2em;
+    font-size: var(--text-h2);
+    color: var(--color-olive);
+  }
+  .body :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .body :global(h3) {
+    margin-top: 1.6em;
+    font-size: 1.375rem;
+  }
+  .body :global(ul),
+  .body :global(ol) {
+    padding-left: 1.4em;
+  }
+  .body :global(li + li) {
+    margin-top: 0.35em;
+  }
+  .body :global(blockquote) {
+    margin-inline: 0;
+    padding-left: 1em;
+    border-left: 2px solid var(--color-olive);
+    font-style: italic;
+  }
+  .body :global(code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: var(--color-raised);
+  }
+  .body :global(pre) {
+    overflow-x: auto;
+    padding: 16px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    /* Shiki (the code highlighter) sets its own gray inline; use the palette instead. */
+    background-color: var(--color-surface) !important;
+  }
+  .body :global(pre code) {
+    padding: 0;
+    background: none;
+  }
+  .body :global(img) {
+    height: auto;
+    border-radius: var(--radius-card);
+  }
+
+  .foot {
+    border-top: 1px solid var(--color-border);
+    padding-top: 24px;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 700;
+  }
+  .foot a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+  }
+</style>

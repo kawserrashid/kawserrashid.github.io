@@ -7,6 +7,7 @@
 | 2026-11-04 | 1 Foundation | ✅ done | Astro 6.4 (7.x needs Node ≥ 22.23.4; machine has 22.22.1), Fontsource fonts, tokens, BaseLayout, Header/Nav, Footer, profile.json, temp index |
 | 2026-11-04 | 2 Home | ✅ done (pending review) | collections + Zod, status map, Lucide icons, Home sections 1–6, placeholder content from mockup |
 | 2026-11-04 | Research page (pulled forward from 6) | ✅ done (pending review) | publications first, then write-ups; nav 6 items |
+| 2026-11-04 | Write-up pages (FR-14) | ✅ done (pending review) | `/research/[slug]`, cards link per entry, prose styles, drafts get no page |
 | — | 3 About | ⏭ next | awaiting go-ahead |
 
 PM decisions (2026-11-04): `@lucide/astro` approved; schema additions `coverAlt` + `draft` approved, `Topic` enum and `updated` not adopted (topic stays free text).
