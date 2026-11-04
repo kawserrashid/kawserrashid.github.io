@@ -1,0 +1,37 @@
+---
+// TEMPORARY smoke-test page for step 1. Replaced by the real Home in step 2.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import profile from '../data/profile.json';
+---
+
+<BaseLayout title={profile.name} description={profile.tagline}>
+  <section class="container smoke">
+    <h1><strong>Kawser</strong> explores how people can understand and trust what vision models see.</h1>
+    <p>Foundation check: fonts, tokens, header and footer. [Temporary page]</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .smoke {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-block: 88px 72px;
+  }
+  h1 {
+    max-width: 900px;
+    font-size: var(--text-hero);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  h1 strong {
+    font-weight: 600;
+    color: var(--color-olive);
+  }
+  p {
+    max-width: 680px;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+  }
+</style>

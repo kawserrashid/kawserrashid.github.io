@@ -89,7 +89,7 @@ Status ◄── notes.status
 No foreign keys beyond these. Sorting and grouping (newest first, by
 year) happen in `src/lib/`, not in the data.
 
-## Fields added vs. hand-off (need PM approval)
+## Fields added vs. hand-off (PM decision 2026-11-04: 1 + 2 approved, 3 + 4 not adopted)
 1. `research.coverAlt` — accessibility rule requires alt text.
 2. `draft` on research/notes — lets you commit unfinished work without publishing it.
 3. `Topic` as enum instead of free text — keeps labels consistent.

@@ -4,9 +4,12 @@
 | Date | Step | Status | Notes |
 |---|---|---|---|
 | 2026-11-04 | 0 Setup | ✅ done | npm, git multi-account config, GitHub repo, docs pushed |
-| — | 1 Foundation | ⏭ next | awaiting go-ahead |
+| 2026-11-04 | 1 Foundation | ✅ done | Astro 6.4 (7.x needs Node ≥ 22.23.4; machine has 22.22.1), Fontsource fonts, tokens, BaseLayout, Header/Nav, Footer, profile.json, temp index |
+| — | 2 Home | ⏭ next | awaiting go-ahead |
 
-Open PM decisions: `@lucide/astro` dependency (needed by step 2); schema additions in `03-content-schema.md` (default: keep only `coverAlt`).
+PM decisions (2026-11-04): `@lucide/astro` approved; schema additions `coverAlt` + `draft` approved, `Topic` enum and `updated` not adopted (topic stays free text).
+
+Tech debt: `npm audit` flags build-time deps (sharp, esbuild); the fix is Astro 7, which needs a Node upgrade.
 
 ## Milestones
 Each step ends with: summary of what changed + why → PM review → go-ahead.
