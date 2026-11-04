@@ -1,0 +1,303 @@
+---
+// About (docs/06-pages.md § About, FR-04). All copy lives in src/data/about.json
+// and src/data/quotes.json.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Camera from '@lucide/astro/icons/camera';
+import CircleQuestionMark from '@lucide/astro/icons/circle-question-mark';
+import Headset from '@lucide/astro/icons/headset';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import QuoteMarquee from '../components/QuoteMarquee.astro';
+import { about, quotes } from '../lib/about';
+import { profile } from '../lib/profile';
+import { splitOnWord, boldSegments } from '../lib/format';
+
+const { intro, interests, path, lookingFor } = about;
+
+// Portrait: drop a file named portrait.(jpg|jpeg|png|webp) into src/assets/
+// and it appears automatically; until then a placeholder box is shown.
+const portraitFiles = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/portrait.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const portrait = Object.values(portraitFiles)[0]?.default;
+
+const firstName = profile.name.split(' ')[0];
+const headline = splitOnWord(intro.headline, firstName);
+
+const icons = {
+  camera: { component: Camera, color: 'var(--color-teal)' },
+  question: { component: CircleQuestionMark, color: 'var(--color-olive-light)' },
+  headset: { component: Headset, color: 'var(--color-sand)' },
+};
+---
+
+<BaseLayout title={about.meta.title} description={about.meta.description}>
+  <!-- 1. Intro -->
+  <section class="container intro">
+    <div class="intro-text">
+      <p class="label">{intro.label}</p>
+      <h1>
+        {headline ? <>{headline.before}<strong>{headline.word}</strong>{headline.after}</> : intro.headline}
+      </h1>
+      {intro.paragraphs.map((p) => <p class="prose">{p}</p>)}
+    </div>
+    {portrait ? (
+      <Image class="portrait" src={portrait} alt={intro.portraitAlt} widths={[360, 720]} sizes="360px" loading="eager" fetchpriority="high" />
+    ) : (
+      <div class="portrait placeholder">[Portrait]</div>
+    )}
+  </section>
+
+  <!-- 2. Research interests -->
+  <section class="band" aria-labelledby="interests-title">
+    <div class="container stack">
+      <h2 id="interests-title" class="section-title">{interests.title}</h2>
+      <ul class="interest-grid">
+        {interests.items.map((item) => {
+          const Icon = icons[item.icon].component;
+          return (
+            <li class="interest">
+              <Icon size={28} stroke-width={1.8} color={icons[item.icon].color} aria-hidden="true" />
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Path so far + What I'm looking for -->
+  <section class="container two-col">
+    <section class="stack-sm" aria-labelledby="path-title">
+      <h2 id="path-title" class="section-title">{path.title}</h2>
+      <ol class="path">
+        {path.items.map((item) => (
+          <li>
+            <p class="years">{item.years}</p>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="stack" aria-labelledby="looking-title">
+      <h2 id="looking-title" class="section-title">{lookingFor.title}</h2>
+      {lookingFor.paragraphs.map((p) => (
+        <p class="prose">
+          {boldSegments(p).map((s) => (s.bold ? <strong>{s.text}</strong> : s.text))}
+        </p>
+      ))}
+      <div class="actions">
+        <Button href={`mailto:${profile.email}`}>{lookingFor.contactButton}</Button>
+        <Button href="/cv/" variant="outline">{lookingFor.cvButton}</Button>
+      </div>
+      <aside class="outside" aria-label={lookingFor.outsideWork.label}>
+        <p class="label">{lookingFor.outsideWork.label}</p>
+        <p>{lookingFor.outsideWork.text}</p>
+      </aside>
+    </section>
+  </section>
+
+  <!-- 4. Favorite quotes -->
+  <section class="quotes" aria-labelledby="quotes-title">
+    <div class="container quotes-head">
+      <p class="label">{about.quotes.label}</p>
+      <h2 id="quotes-title" class="section-title">{about.quotes.title}</h2>
+    </div>
+    <QuoteMarquee quotes={quotes} label={about.quotes.label} />
+  </section>
+</BaseLayout>
+
+<style>
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-label);
+  }
+  .section-title {
+    font-size: var(--text-h2);
+    font-weight: 500;
+  }
+  .prose {
+    color: var(--color-text-prose);
+  }
+  .prose strong {
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .stack-sm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 56px;
+    padding-block: 64px;
+  }
+
+  /* 1. Intro */
+  .intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 56px;
+    padding-block: 80px 64px;
+  }
+  .intro-text {
+    flex: 999 1 520px; /* takes the space; wraps below 520px so the portrait drops under */
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  h1 {
+    font-size: var(--text-hero);
+    line-height: 1.12;
+    font-weight: 400;
+  }
+  h1 strong {
+    font-weight: 600;
+    color: var(--color-olive);
+  }
+  .portrait {
+    flex: 1 1 280px;
+    max-width: 360px;
+    /* Override the width/height attributes Astro adds (they only reserve space). */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 30% 20%; /* keep the face in frame if the box crops */
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    background: var(--color-raised);
+  }
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    color: var(--color-text-label);
+  }
+
+  /* 2. Interests */
+  .band {
+    background: var(--color-surface);
+    padding-block: 64px;
+  }
+  .band .stack {
+    gap: 28px;
+  }
+  .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .interest {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+  .interest h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
+  .interest p {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* 3. Path */
+  .path {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .path li {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 20px;
+    padding-block: 18px;
+    border-top: 1px solid var(--color-border);
+  }
+  .years {
+    padding-top: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-label);
+  }
+  .path h3 {
+    font-size: 1.3125rem;
+    font-weight: 500;
+  }
+  .path p:not(.years) {
+    margin-top: 4px;
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+  }
+  @media (max-width: 480px) {
+    .path li {
+      grid-template-columns: 1fr; /* years above the role on small phones */
+      gap: 4px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 8px;
+  }
+  .outside {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 20px 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+  .outside p:not(.label) {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* 4. Quotes */
+  .quotes {
+    padding-block: 56px 72px;
+    border-top: 1px solid var(--color-border);
+  }
+  .quotes-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 28px;
+  }
+</style>

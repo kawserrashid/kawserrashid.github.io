@@ -113,3 +113,11 @@ File names (slugs) are stable IDs, so backlinks between write-ups can be added l
   titles and hints, CTA, button labels); validated by `src/lib/home.ts`.
   Links (URLs) stay in code. Other pages will follow the same pattern.
 - `src/data/research.json` holds the Research page copy; validated by `src/lib/research.ts`.
+- `src/data/about.json` holds About page copy (intro, interests with
+  `icon: camera | question | headset`, path, looking-for); `**text**` marks
+  bold. `src/data/quotes.json` holds the quotes (≤ 30 words each, enforced).
+  Both validated by `src/lib/about.ts`.
+- Portrait: put `src/assets/portrait.jpg` (or .png/.webp) in place and it
+  appears automatically; alt text is `intro.portraitAlt` in about.json.
+- About's "path so far" duplicates CV roles/degrees for now; step 4 moves
+  them to one shared file (PM decision 2026-11-04, option A).

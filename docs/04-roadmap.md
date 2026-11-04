@@ -8,7 +8,8 @@
 | 2026-11-04 | 2 Home | ✅ done (pending review) | collections + Zod, status map, Lucide icons, Home sections 1–6, placeholder content from mockup |
 | 2026-11-04 | Research page (pulled forward from 6) | ✅ done (pending review) | publications first, then write-ups; nav 6 items |
 | 2026-11-04 | Write-up pages (FR-14) | ✅ done (pending review) | `/research/[slug]`, cards link per entry, prose styles, drafts get no page |
-| — | 3 About | ⏭ next | awaiting go-ahead |
+| 2026-11-04 | 3 About | ✅ done (pending review) | intro + portrait slot, interest cards, path, looking-for, CSS-only quote marquee (reduced-motion → scrollable); copy in about.json / quotes.json |
+| — | 4 CV | ⏭ next | awaiting go-ahead; move roles/degrees into one shared file used by About + CV (option A, 2026-11-04) |
 
 PM decisions (2026-11-04): `@lucide/astro` approved; schema additions `coverAlt` + `draft` approved, `Topic` enum and `updated` not adopted (topic stays free text).
 

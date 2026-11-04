@@ -59,7 +59,7 @@ const taglineRest = profile.tagline.startsWith(firstName)
 
   <!-- 4. Notes + Paper notes -->
   <section class="container two-col lists">
-    <div class="stack" aria-labelledby="notes-title">
+    <section class="stack" aria-labelledby="notes-title">
       <h3 id="notes-title" class="sub-title">{home.notes.title}</h3>
       <p class="hint">{home.notes.hint}</p>
       <ul class="rows">
@@ -70,8 +70,8 @@ const taglineRest = profile.tagline.startsWith(firstName)
           </li>
         ))}
       </ul>
-    </div>
-    <div class="stack" aria-labelledby="papers-title">
+    </section>
+    <section class="stack" aria-labelledby="papers-title">
       <h3 id="papers-title" class="sub-title">{home.paperNotes.title}</h3>
       <p class="hint">{home.paperNotes.hint}</p>
       <ul class="rows">
@@ -82,7 +82,7 @@ const taglineRest = profile.tagline.startsWith(firstName)
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   </section>
 
   <!-- 5. Publications + Now, on a surface band -->

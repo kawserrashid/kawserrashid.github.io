@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "About",
+    "description": "Kawser is an engineer, teacher, and researcher asking why AI and computer vision systems make their decisions, and whether we can trust them."
+  },
+  "intro": {
+    "label": "About",
+    "headline": "I'm Kawser, an engineer, teacher, and researcher asking why AI and Computer Vision systems make their decisions, and whether we can trust them.",
+    "paragraphs": [
+      "[2–3 sentences: where you're from, what first pulled you toward computer vision and explainability, and the question you keep coming back to.]",
+      "Today I build backend systems with Django and PostgreSQL, teach technology to professional learners, and use this site to work through research ideas in public."
+    ],
+    "portraitAlt": "Kawser smiling at a café table, wearing a plaid shirt, with a red cup of coffee in front of him"
+  },
+  "interests": {
+    "title": "What I want to research",
+    "items": [
+      {
+        "title": "Computer Vision",
+        "icon": "camera",
+        "text": "[What problems in visual recognition interest you, and in what settings?]"
+      },
+      {
+        "title": "Trustworthy & Explainable AI",
+        "icon": "question",
+        "text": "[Why explanations matter to you — e.g., whether they stay faithful under real conditions.]"
+      },
+      {
+        "title": "Extended Reality (XR)",
+        "icon": "headset",
+        "text": "[How XR could make model behavior visible or explorable for people.]"
+      }
+    ]
+  },
+  "path": {
+    "title": "The path so far",
+    "items": [
+      {
+        "years": "[2025–now]",
+        "title": "Backend Software Engineer · [Company]",
+        "text": "REST APIs and data models with Django REST Framework and PostgreSQL."
+      },
+      {
+        "years": "[Years]",
+        "title": "Technology trainer · [Program]",
+        "text": "Designing technology training and assessments for professional learners."
+      },
+      {
+        "years": "[Year]",
+        "title": "MS in Computer Science (Data Science)",
+        "text": "East West University, Dhaka. Thesis: [title]."
+      },
+      {
+        "years": "[Year]",
+        "title": "[Undergraduate degree]",
+        "text": "[University]."
+      }
+    ]
+  },
+  "lookingFor": {
+    "title": "What I'm looking for",
+    "paragraphs": [
+      "PhD positions starting **[Fall 2027]** in labs working on computer vision, explainable AI, or human-centered AI and XR.",
+      "I bring production engineering habits — clean data pipelines, tested code, systems that keep running — and experience teaching technical material."
+    ],
+    "contactButton": "Get in touch",
+    "cvButton": "View CV",
+    "outsideWork": {
+      "label": "Outside work",
+      "text": "[A line or two about what you read, make, or enjoy — it helps advisors see a person, not just a profile.]"
+    }
+  },
+  "quotes": {
+    "label": "Favorite quotes",
+    "title": "Words I keep coming back to"
+  }
+}

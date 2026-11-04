@@ -22,3 +22,17 @@ const pubStatusLabels: Record<string, string> = {
 
 /** Enum value → label; placeholders like "[In preparation]" pass through unchanged. */
 export const pubStatusLabel = (s: string) => pubStatusLabels[s] ?? s;
+
+/**
+ * Splits "I'm Kawser, an engineer…" around the first occurrence of `word`,
+ * so the page can highlight it. Returns null if the word isn't there.
+ */
+export function splitOnWord(text: string, word: string) {
+  const i = text.indexOf(word);
+  return i === -1 ? null : { before: text.slice(0, i), word, after: text.slice(i + word.length) };
+}
+
+/** "plain **bold** plain" → [{ text, bold }] segments for minimal inline emphasis. */
+export function boldSegments(text: string) {
+  return text.split(/\*\*(.+?)\*\*/g).map((t, i) => ({ text: t, bold: i % 2 === 1 }));
+}
