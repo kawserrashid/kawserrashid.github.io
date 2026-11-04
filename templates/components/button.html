@@ -1,0 +1,8 @@
+{#
+  Pill-shaped link button. variant: "primary" (teal fill) or "outline" (bordered).
+    {% from "components/button.html" import button %}
+    {{ button(url_for("cv"), "View CV", variant="outline") }}
+#}
+{% macro button(href, text, variant="primary") -%}
+<a class="button button-{{ variant }}" href="{{ href }}">{{ text }}</a>
+{%- endmacro %}

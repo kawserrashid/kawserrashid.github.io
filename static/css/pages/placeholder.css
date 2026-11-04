@@ -1,0 +1,25 @@
+/* "Coming soon" pages (templates/pages/placeholder.html). */
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 72px 96px;
+}
+.placeholder-page h1 {
+  font-size: var(--text-hero);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-olive);
+}
+.placeholder-page p {
+  max-width: 680px;
+  color: var(--color-text-secondary);
+}
+.coming-soon {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-label);
+}

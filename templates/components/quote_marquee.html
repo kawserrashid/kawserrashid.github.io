@@ -1,0 +1,27 @@
+{#
+  A row of quote cards drifting right -> left in an endless loop. CSS only, no JavaScript.
+  Seamless loop: the list is rendered twice and the track slides by exactly
+  half its width (one copy), then restarts, so the jump is invisible.
+  - The second copy is aria-hidden, so screen readers hear each quote once.
+  - Pauses on hover and on keyboard focus (the strip itself is focusable).
+  - Reduced motion: no animation; the strip becomes a scrollable row.
+#}
+{% macro quote_marquee(quotes, label) -%}
+<div class="marquee" tabindex="0" role="region" aria-label="{{ label }}">
+  <div class="marquee-track">
+    {% for hidden in [False, True] %}
+      <ul class="marquee-set{% if hidden %} marquee-duplicate{% endif %}"{% if hidden %} aria-hidden="true"{% endif %}>
+        {% for q in quotes %}
+          <li>
+            <figure class="quote-card">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <blockquote>{{ q.text }}</blockquote>
+              <figcaption>— {{ q.author }}{% if q.source %}, <cite>{{ q.source }}</cite>{% endif %}</figcaption>
+            </figure>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}

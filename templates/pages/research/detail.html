@@ -1,0 +1,45 @@
+{#
+  One research write-up: /research/<slug>/
+  `entry` is a ResearchEntry (core/models.py); its Markdown body is already HTML.
+  The date is used for sorting but not shown yet.
+#}
+{% extends "base.html" %}
+{% from "components/status.html" import status_badge %}
+
+{% set title = entry.title %}
+{% set description = entry.summary %}
+{% set labels = page.writeupPage %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/research.css') }}">
+{% endblock %}
+
+{% block content %}
+  <article class="container article">
+    <header class="article-head">
+      {{ status_badge(entry.status, topic=entry.topic, caps=True) }}
+      <h1>{{ entry.title }}</h1>
+      <p class="summary">{{ entry.summary }}</p>
+      {% if entry.code or entry.demo %}
+        <p class="meta">
+          {% if entry.code %}<a href="{{ entry.code }}">{{ labels.codeLink }}</a>{% endif %}
+          {% if entry.code and entry.demo %} · {% endif %}
+          {% if entry.demo %}<a href="{{ entry.demo }}">{{ labels.demoLink }}</a>{% endif %}
+        </p>
+      {% endif %}
+    </header>
+
+    {% if entry.cover %}
+      <img class="cover" src="{{ url_for('static', filename=entry.cover) }}" alt="{{ entry.cover_alt }}">
+    {% endif %}
+
+    {# |safe: the HTML comes from our own Markdown files, so it is trusted. #}
+    <div class="article-body">
+      {{ entry.body_html | safe }}
+    </div>
+
+    <footer class="article-foot">
+      <a href="{{ url_for('research') }}">{{ labels.backLink }}</a>
+    </footer>
+  </article>
+{% endblock %}

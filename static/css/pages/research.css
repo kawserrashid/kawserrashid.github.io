@@ -1,0 +1,168 @@
+/*
+ * Research pages only:
+ *   templates/pages/research/index.html   (list)
+ *   templates/pages/research/detail.html  (one write-up)
+ */
+
+/* ---------- List page ---------- */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 72px 56px;
+}
+.intro h1 {
+  font-size: var(--text-hero);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-olive);
+}
+.intro p {
+  max-width: 680px;
+  color: var(--color-text-secondary);
+}
+.sub-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.band {
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+  padding-block: 56px;
+  /* Leave room above the heading when jumping to #publications. */
+  scroll-margin-top: 16px;
+}
+.prose-width {
+  max-width: var(--width-prose); /* citations read better in a narrower column */
+}
+.writeups {
+  padding-block: 56px 72px;
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.hint {
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  color: var(--color-text-secondary);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 28px;
+}
+
+/* ---------- Write-up page ---------- */
+.article {
+  max-width: calc(var(--width-prose) + 2 * var(--gutter));
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-block: 72px;
+}
+.article-head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.article-head h1 {
+  font-size: var(--text-hero);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.summary {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+}
+.meta {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-label);
+}
+.meta a {
+  font-weight: 700;
+}
+.cover {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+/* Markdown body: styles for the HTML generated from the .md file. */
+.article-body {
+  color: var(--color-text-prose);
+  border-top: 1px solid var(--color-border);
+  padding-top: 40px;
+}
+.article-body > * + * {
+  margin-top: 1.1em;
+}
+.article-body h2 {
+  margin-top: 2em;
+  font-size: var(--text-h2);
+  color: var(--color-olive);
+}
+.article-body h2:first-child {
+  margin-top: 0;
+}
+.article-body h3 {
+  margin-top: 1.6em;
+  font-size: 1.375rem;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4em;
+}
+.article-body li + li {
+  margin-top: 0.35em;
+}
+.article-body blockquote {
+  margin-inline: 0;
+  padding-left: 1em;
+  border-left: 2px solid var(--color-olive);
+  font-style: italic;
+}
+.article-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--color-raised);
+}
+.article-body pre {
+  overflow-x: auto;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  background: var(--color-surface);
+}
+.article-body pre code {
+  padding: 0;
+  background: none;
+}
+.article-body img {
+  height: auto;
+  border-radius: var(--radius-card);
+}
+.article-foot {
+  border-top: 1px solid var(--color-border);
+  padding-top: 24px;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: 700;
+}
+.article-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}

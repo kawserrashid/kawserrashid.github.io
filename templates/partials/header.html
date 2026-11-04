@@ -1,0 +1,13 @@
+{# Site header: wordmark + main nav. The current page gets aria-current="page". #}
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="wordmark" href="{{ url_for('home') }}"{% if is_current('home') %} aria-current="page"{% endif %}>Kawser</a>
+    <ul class="nav-links">
+      {% for item in nav_items %}
+        <li>
+          <a href="{{ url_for(item.endpoint) }}"{% if is_current(item.endpoint) %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>

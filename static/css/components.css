@@ -1,0 +1,311 @@
+/*
+ * Styles for the shared pieces (templates/partials/ and templates/components/).
+ * Loaded on every page. Class names are prefixed with the component name
+ * (e.g. .research-card-title) so they can't clash with page styles.
+ */
+
+/* ---------- Header (partials/header.html) ---------- */
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 20px;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: var(--text-wordmark);
+  font-weight: 600;
+  color: var(--color-text-body);
+  text-decoration: none;
+}
+.wordmark:hover {
+  color: var(--color-text-heading);
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Cancel the links' outer padding so link text lines up with the page edges. */
+  margin-inline: -12px;
+}
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: 12px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+.nav-links a:hover {
+  color: var(--color-text-heading);
+}
+.nav-links a[aria-current='page'] {
+  color: var(--color-olive);
+  font-weight: 700;
+}
+
+/* ---------- Footer (partials/footer.html) ---------- */
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding-block: 48px 56px;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.footer-copy {
+  color: var(--color-text-label);
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 700;
+}
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}
+
+/* ---------- Button (components/button.html) ---------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.button-primary {
+  background: var(--color-teal);
+  color: var(--color-bg);
+}
+.button-primary:hover {
+  background: var(--color-teal-hover);
+  color: var(--color-bg);
+}
+.button-outline {
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-body);
+}
+.button-outline:hover {
+  border-color: var(--color-teal);
+  color: var(--color-text-heading);
+}
+
+/* ---------- Status badge + legend (components/status.html) ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--status-color);
+}
+.badge svg {
+  flex-shrink: 0;
+}
+.badge-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend strong {
+  font-weight: 700;
+  color: var(--color-text-body);
+}
+
+/* ---------- Research card (components/research_card.html) ---------- */
+.research-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--color-text-body);
+  text-decoration: none;
+}
+.research-card-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  background: var(--color-raised);
+}
+.research-card-title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--color-text-heading);
+}
+.research-card p {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+.research-card:hover .research-card-title {
+  color: var(--color-teal-hover);
+}
+
+/* Grey box with a hint, shown where an image will go. */
+.media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-label);
+}
+
+/* ---------- Publication list (components/publication_list.html) ---------- */
+.publications {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pub-group-label {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-label);
+}
+.publications ol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding-left: 22px;
+  font-size: 1.125rem;
+  color: var(--color-text-prose);
+}
+.publications strong {
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+.pub-links {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 700;
+}
+
+/* ---------- Quote marquee (components/quote_marquee.html) ---------- */
+.marquee {
+  overflow: hidden;
+  /* Soft fade at both edges instead of a hard cut. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee:focus-visible {
+  outline-offset: -2px;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 70s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-set {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.quote-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(400px, 80vw);
+  height: 100%;
+  margin: 0 24px 0 0;
+  padding: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+.quote-mark {
+  font-size: 3rem;
+  line-height: 0.6;
+  color: var(--color-olive);
+}
+.quote-card blockquote {
+  margin: 0;
+  font-size: 1.3125rem; /* 21px */
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--color-text-heading);
+}
+.quote-card figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  color: var(--color-text-label);
+}
+.quote-card cite {
+  font-style: normal;
+}
+
+/* Reduced motion: no movement; swipe or scroll instead; no duplicate copy. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+  .marquee-track {
+    animation: none;
+    padding-inline: var(--gutter);
+  }
+  .marquee-duplicate {
+    display: none;
+  }
+  .quote-card {
+    scroll-snap-align: start;
+  }
+}

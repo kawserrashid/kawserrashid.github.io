@@ -1,0 +1,95 @@
+{#
+  About. All copy lives in data/about.json (as `page`) and data/quotes.json (as `quotes`).
+  Sections: 1 intro + portrait, 2 research interests, 3 path + looking for, 4 quotes.
+#}
+{% extends "base.html" %}
+{% from "components/button.html" import button %}
+{% from "components/icons.html" import icon %}
+{% from "components/quote_marquee.html" import quote_marquee %}
+
+{% set title = page.meta.title %}
+{% set description = page.meta.description %}
+
+{# Icon name in about.json -> color #}
+{% set ICON_COLORS = {
+  "camera": "var(--color-teal)",
+  "question": "var(--color-olive-light)",
+  "headset": "var(--color-sand)",
+} %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/about.css') }}">
+{% endblock %}
+
+{% block content %}
+  {# 1. Intro #}
+  <section class="container intro">
+    <div class="intro-text">
+      <p class="label">{{ page.intro.label }}</p>
+      <h1>{{ page.intro.headline | highlight_word(profile.name.split()[0]) }}</h1>
+      {% for paragraph in page.intro.paragraphs %}
+        <p class="prose">{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+    {# To change the photo, replace static/img/portrait.jpg #}
+    <img class="portrait" src="{{ url_for('static', filename='img/portrait.jpg') }}" alt="{{ page.intro.portraitAlt }}" width="360" height="450">
+  </section>
+
+  {# 2. Research interests #}
+  <section class="band" aria-labelledby="interests-title">
+    <div class="container stack">
+      <h2 id="interests-title" class="section-title">{{ page.interests.title }}</h2>
+      <ul class="interest-grid">
+        {% for item in page.interests["items"] %}
+          <li class="interest">
+            {{ icon(item.icon, size=28, stroke=1.8, color=ICON_COLORS[item.icon]) }}
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  {# 3. Path so far + What I'm looking for #}
+  <section class="container two-col">
+    <section class="stack-sm" aria-labelledby="path-title">
+      <h2 id="path-title" class="section-title">{{ page.path.title }}</h2>
+      <ol class="path">
+        {% for item in page.path["items"] %}
+          <li>
+            <p class="years">{{ item.years }}</p>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.text }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+
+    <section class="stack" aria-labelledby="looking-title">
+      <h2 id="looking-title" class="section-title">{{ page.lookingFor.title }}</h2>
+      {% for paragraph in page.lookingFor.paragraphs %}
+        <p class="prose">{{ paragraph | bold }}</p>
+      {% endfor %}
+      <div class="actions">
+        {{ button("mailto:" ~ profile.email, page.lookingFor.contactButton) }}
+        {{ button(url_for('cv'), page.lookingFor.cvButton, variant="outline") }}
+      </div>
+      <aside class="outside" aria-label="{{ page.lookingFor.outsideWork.label }}">
+        <p class="label">{{ page.lookingFor.outsideWork.label }}</p>
+        <p>{{ page.lookingFor.outsideWork.text }}</p>
+      </aside>
+    </section>
+  </section>
+
+  {# 4. Favorite quotes #}
+  <section class="quotes" aria-labelledby="quotes-title">
+    <div class="container quotes-head">
+      <p class="label">{{ page.quotes.label }}</p>
+      <h2 id="quotes-title" class="section-title">{{ page.quotes.title }}</h2>
+    </div>
+    {{ quote_marquee(quotes, label=page.quotes.label) }}
+  </section>
+{% endblock %}

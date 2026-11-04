@@ -1,0 +1,32 @@
+{#
+  Status shown as icon + word (never color alone).
+  STATUSES is the single place that maps a status to its label, icon and color.
+    status_badge(status, topic=None, caps=False)  - one badge
+    status_legend()                                - explains all three statuses
+#}
+{% from "components/icons.html" import icon %}
+
+{% set STATUSES = {
+  "planning":  {"label": "Planning",  "blurb": "early idea",    "icon": "lightbulb",     "color": "var(--color-olive-light)"},
+  "ongoing":   {"label": "Ongoing",   "blurb": "in progress",   "icon": "loader-circle", "color": "var(--color-sand)"},
+  "completed": {"label": "Completed", "blurb": "finished work", "icon": "check-check",   "color": "var(--color-teal)"},
+} %}
+
+{% macro status_badge(status, topic=None, caps=False) -%}
+{%- set s = STATUSES[status] -%}
+<span class="badge{% if caps %} badge-caps{% endif %}" style="--status-color: {{ s.color }}">
+  {{ icon(s.icon, size=16) }}
+  <span>{{ s.label }}{% if topic %} · {{ topic }}{% endif %}</span>
+</span>
+{%- endmacro %}
+
+{% macro status_legend() -%}
+<ul class="legend" aria-label="Status legend">
+  {% for s in STATUSES.values() %}
+    <li>
+      {{ icon(s.icon, size=20, stroke=1.8, color=s.color) }}
+      <span><strong>{{ s.label }}</strong>: {{ s.blurb }}</span>
+    </li>
+  {% endfor %}
+</ul>
+{%- endmacro %}

@@ -1,0 +1,31 @@
+{#
+  Wraps every page: <head>, skip link, header, <main>, footer.
+  Same idea as Django's base.html. A page sets two variables at its top:
+    {% set title = "About" %}            browser tab title (site name added automatically)
+    {% set description = "..." %}        meta description (optional; defaults to the tagline)
+  and fills two blocks:
+    page_css     - optional <link> to the page's own stylesheet
+    content      - the page itself
+#}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if title == profile.name %}{{ title }}{% else %}{{ title }} · {{ profile.name }}{% endif %}</title>
+    <meta name="description" content="{{ description | default(profile.tagline) }}">
+    <meta name="theme-color" content="#060f11">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    {% block page_css %}{% endblock %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {% include "partials/header.html" %}
+    <main id="main" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+    {% include "partials/footer.html" %}
+  </body>
+</html>

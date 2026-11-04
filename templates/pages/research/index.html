@@ -1,0 +1,42 @@
+{#
+  Research: publications first, then every published write-up as a card.
+  Copy lives in data/research.json (as `page`).
+#}
+{% extends "base.html" %}
+{% from "components/research_card.html" import research_card %}
+{% from "components/publication_list.html" import publication_list %}
+
+{% set title = page.title %}
+{% set description = page.intro %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/research.css') }}">
+{% endblock %}
+
+{% block content %}
+  <header class="container intro">
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.intro }}</p>
+  </header>
+
+  <section id="publications" class="band" aria-labelledby="pubs-title">
+    <div class="container">
+      <div class="stack prose-width">
+        <h2 id="pubs-title" class="sub-title">{{ page.publications.title }}</h2>
+        {{ publication_list(publication_groups, bold_name=profile.name) }}
+      </div>
+    </div>
+  </section>
+
+  <section id="writeups" class="container stack writeups" aria-labelledby="writeups-title">
+    <div class="head">
+      <h2 id="writeups-title" class="sub-title">{{ page.writeups.title }}</h2>
+      <p class="hint">{{ page.writeups.hint }}</p>
+    </div>
+    <div class="cards">
+      {% for entry in writeups %}
+        {{ research_card(entry, heading_level=3) }}
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

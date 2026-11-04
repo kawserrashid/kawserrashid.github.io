@@ -1,0 +1,12 @@
+{# Site footer: copyright on the left, contact links (from data/profile.json) on the right. #}
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© {{ current_year }} {{ profile.name }} · Built with Flask</p>
+    <ul class="footer-links" aria-label="Contact">
+      <li><a href="mailto:{{ profile.email }}">Email</a></li>
+      <li><a href="{{ profile.links.github }}">GitHub</a></li>
+      <li><a href="{{ profile.links.scholar }}">Google Scholar</a></li>
+      <li><a href="{{ profile.links.linkedin }}">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>

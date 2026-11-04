@@ -1,0 +1,18 @@
+{#
+  One research write-up. The whole card is a single link to the write-up's page.
+  heading_level keeps the heading outline correct: h4 under an h3 section, h3 under an h2.
+#}
+{% from "components/status.html" import status_badge %}
+
+{% macro research_card(entry, heading_level=4) -%}
+<a class="research-card" href="{{ url_for('research_detail', slug=entry.slug) }}">
+  {% if entry.cover %}
+    <img class="research-card-media" src="{{ url_for('static', filename=entry.cover) }}" alt="{{ entry.cover_alt }}" loading="lazy">
+  {% else %}
+    <div class="research-card-media media-placeholder">[Illustration or demo GIF]</div>
+  {% endif %}
+  {{ status_badge(entry.status, topic=entry.topic, caps=True) }}
+  <h{{ heading_level }} class="research-card-title">{{ entry.title }}</h{{ heading_level }}>
+  <p>{{ entry.summary }}</p>
+</a>
+{%- endmacro %}

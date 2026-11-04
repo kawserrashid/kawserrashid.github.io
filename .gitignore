@@ -1,8 +1,3 @@
-# dependencies (rebuilt by `npm install`)
-node_modules/
-# build output (rebuilt by `npm run build`)
-dist/
-.astro/
-# local env / OS noise
-.env
-.DS_Store
+.venv/
+__pycache__/
+build/

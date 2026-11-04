@@ -1,0 +1,108 @@
+{#
+  Home. All copy on this page lives in data/home.json (passed in as `page`).
+  Sections: 1 hero, 2 sketch board intro, 3 research cards,
+  4 notes + paper notes, 5 publications + now, 6 call to action.
+#}
+{% extends "base.html" %}
+{% from "components/button.html" import button %}
+{% from "components/status.html" import status_badge, status_legend %}
+{% from "components/research_card.html" import research_card %}
+{% from "components/publication_list.html" import publication_list %}
+
+{% set title = profile.name %}
+{% set description = profile.tagline %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/home.css') }}">
+{% endblock %}
+
+{% block content %}
+  {# 1. Hero: the first name in the tagline is highlighted in olive. #}
+  <section class="container hero">
+    <h1>{{ profile.tagline | highlight_word(profile.name.split()[0]) }}</h1>
+    <p class="hero-sub">{{ page.hero.sub }}</p>
+    <div class="actions">
+      {{ button(url_for('research'), page.hero.primaryButton) }}
+      {{ button(url_for('cv'), page.hero.secondaryButton, variant="outline") }}
+    </div>
+  </section>
+
+  {# 2. Sketch Board intro + legend #}
+  <section class="container" aria-labelledby="sketch-title">
+    <div class="sketch">
+      <div class="sketch-intro">
+        <h2 id="sketch-title" class="section-title">{{ page.sketchBoard.title }}</h2>
+        <p class="secondary">{{ page.sketchBoard.intro }}</p>
+      </div>
+      {{ status_legend() }}
+    </div>
+  </section>
+
+  {# 3. Research write-ups (three newest) #}
+  <section class="container research" aria-labelledby="research-title">
+    <div class="research-head">
+      <h3 id="research-title" class="sub-title">{{ page.research.title }}</h3>
+      <p class="hint">{{ page.research.hint }}</p>
+    </div>
+    <div class="cards">
+      {% for entry in research %}
+        {{ research_card(entry) }}
+      {% endfor %}
+    </div>
+  </section>
+
+  {# 4. Notes + Paper notes, side by side #}
+  <section class="container two-col lists">
+    <section class="stack" aria-labelledby="notes-title">
+      <h3 id="notes-title" class="sub-title">{{ page.notes.title }}</h3>
+      <p class="hint">{{ page.notes.hint }}</p>
+      <ul class="rows">
+        {% for note in notes %}
+          <li class="row">
+            <a href="{{ url_for('notes') }}">{{ note.title }}</a>
+            {{ status_badge(note.status) }}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="stack" aria-labelledby="papers-title">
+      <h3 id="papers-title" class="sub-title">{{ page.paperNotes.title }}</h3>
+      <p class="hint">{{ page.paperNotes.hint }}</p>
+      <ul class="rows">
+        {% for paper in paper_notes %}
+          <li class="row row-column">
+            <a href="{{ url_for('notes') }}">{{ paper.paper_title }}</a>
+            <span class="meta">{{ paper.venue }}, {{ paper.year }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </section>
+
+  {# 5. Publications + Now, on a surface band #}
+  <div class="band">
+    <div class="container two-col">
+      <section class="stack" aria-labelledby="pubs-title">
+        <h2 id="pubs-title" class="sub-title">{{ page.publications.title }}</h2>
+        {{ publication_list(publication_groups, bold_name=profile.name) }}
+        <a class="more" href="{{ url_for('cv') }}">{{ page.publications.cvLink }}</a>
+      </section>
+      <section class="stack" aria-labelledby="now-title">
+        <h2 id="now-title" class="sub-title">{{ page.now.title }}</h2>
+        {% for paragraph in profile.now.text %}
+          <p class="prose">{{ paragraph }}</p>
+        {% endfor %}
+        <p class="meta">Updated {{ profile.now.updated | format_month }}</p>
+      </section>
+    </div>
+  </div>
+
+  {# 6. Closing call to action #}
+  <section class="container cta" aria-labelledby="cta-title">
+    <div>
+      <h2 id="cta-title" class="cta-title">{{ page.cta.title }}</h2>
+      <p class="secondary">{{ page.cta.text }}</p>
+    </div>
+    {{ button("mailto:" ~ profile.email, page.cta.button) }}
+  </section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{#
+  Publications grouped (conference, then manuscripts & thesis) with continuous
+  numbering. Kawser's name is bolded automatically. Used on Home and Research.
+    publication_list(groups, bold_name=profile.name)
+  `groups` comes from content.get_publication_groups().
+
+  Note: each <li> is kept on one line on purpose. Line breaks between tags
+  become spaces in HTML ("Rashid ." instead of "Rashid.").
+#}
+{% macro citation(pub) -%}
+  {%- if pub.type == "conference" -%}In Proceedings of {{ pub.venue }}, {{ pub.year }}.
+  {%- elif pub.type == "manuscript" -%}{{ pub.status | publication_status }}.
+  {%- else -%}MS Thesis, {{ pub.venue }}, {{ pub.year }}.
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro publication_list(groups, bold_name) -%}
+<div class="publications">
+  {% for group in groups %}
+    <p class="pub-group-label">{{ group.label }}</p>
+    <ol start="{{ group["items"][0][0] }}">
+      {% for number, pub in group["items"] %}
+        <li>{% for author in pub.authors %}{% if not loop.first %}, {% endif %}{% if author == bold_name %}<strong>{{ author }}</strong>{% else %}{{ author }}{% endif %}{% endfor %}. {% if pub.pdf %}<a href="{{ pub.pdf }}">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}. <em>{{ citation(pub) }}</em>{% if pub.pdf or pub.doi %} <span class="pub-links">{% if pub.pdf %}<a href="{{ pub.pdf }}">PDF</a>{% endif %}{% if pub.pdf and pub.doi %} · {% endif %}{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}">DOI</a>{% endif %}</span>{% endif %}</li>
+      {% endfor %}
+    </ol>
+  {% endfor %}
+</div>
+{%- endmacro %}
