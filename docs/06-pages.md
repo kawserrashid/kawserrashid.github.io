@@ -1,5 +1,5 @@
 <!-- Imported from the design hand-off, 2026-11-04. This file is now the source of truth. -->
-# Pages (v1: Home, About, CV, Journey)
+# Pages (v1: Home, Research, About, CV, Journey)
 Visual reference: original hand-off mockups (not in repo).
 
 
@@ -78,8 +78,18 @@ Visual reference: original hand-off mockups (not in repo).
 - Seed entry: "Took the GRE today. Riding on the high point of a
   month-long effort." (Milestone; date is a placeholder.)
 
+## Research
+Publications live here as a section; there is no separate Publications
+page (PM decision 2026-11-04).
+1. Page title and a one-sentence intro.
+2. Publications (`id="publications"`, first on the page)
+   - Same grouped, numbered list as Home and CV (`PublicationList`).
+3. Write-ups
+   - Every published research write-up as a card, newest first, with
+     status badge and topic. Drafts excluded.
+
 ## Placeholder pages
-- Sketch Board, Research, Notes, Publications: title, one sentence,
+- Sketch Board, Notes: title, one sentence,
   "coming soon". They exist so navigation never leads to a missing page.
 
 ## Site-wide

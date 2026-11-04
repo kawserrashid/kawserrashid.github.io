@@ -6,9 +6,14 @@
 | 2026-11-04 | 0 Setup | ✅ done | npm, git multi-account config, GitHub repo, docs pushed |
 | 2026-11-04 | 1 Foundation | ✅ done | Astro 6.4 (7.x needs Node ≥ 22.23.4; machine has 22.22.1), Fontsource fonts, tokens, BaseLayout, Header/Nav, Footer, profile.json, temp index |
 | 2026-11-04 | 2 Home | ✅ done (pending review) | collections + Zod, status map, Lucide icons, Home sections 1–6, placeholder content from mockup |
+| 2026-11-04 | Research page (pulled forward from 6) | ✅ done (pending review) | publications first, then write-ups; nav 6 items |
 | — | 3 About | ⏭ next | awaiting go-ahead |
 
 PM decisions (2026-11-04): `@lucide/astro` approved; schema additions `coverAlt` + `draft` approved, `Topic` enum and `updated` not adopted (topic stays free text).
+
+Write-up pages (2026-11-04): each research write-up gets `/research/<slug>/` in v1 (FR-14); scheduled after step 2's Research page, before step 3. BibTeX: deferred (≈5 entries; JSON is enough), ADR 5 stands.
+
+Structure change (2026-11-04): Publications moved into the Research page as its first section; nav is 6 items; `/publications/` dropped. Home "Full CV →" link unchanged.
 
 Tech debt: `npm audit` flags build-time deps (sharp, esbuild); the fix is Astro 7, which needs a Node upgrade.
 
@@ -23,7 +28,7 @@ Each step ends with: summary of what changed + why → PM review → go-ahead.
 | 3 | About | intro, interest cards, path, looking-for, quote marquee | CSS grid/flex, CSS animation, reduced motion |
 | 4 | CV | CV sections, PDF link | semantic HTML for documents |
 | 5 | Journey | collection, timeline, year grouping, JS filter | Astro images, progressive enhancement |
-| 6 | Stubs | 4 placeholder pages | layout reuse |
+| 6 | Research + stubs | Research page (publications, then write-ups); Sketch Board + Notes placeholders | layout reuse, anchors |
 | 7 | Ship | Actions deploy, titles, meta, OG, favicon | CI/CD for static sites, SEO basics |
 
 ## Definition of done (every step)

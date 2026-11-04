@@ -112,3 +112,4 @@ File names (slugs) are stable IDs, so backlinks between write-ups can be added l
 - `src/data/home.json` holds all fixed Home page copy (hero line, section
   titles and hints, CTA, button labels); validated by `src/lib/home.ts`.
   Links (URLs) stay in code. Other pages will follow the same pattern.
+- `src/data/research.json` holds the Research page copy; validated by `src/lib/research.ts`.

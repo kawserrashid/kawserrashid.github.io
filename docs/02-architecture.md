@@ -47,11 +47,11 @@ code you rarely touch.
 | `SectionHeading` | many | label + title pattern |
 | `StatusBadge` / `StatusLegend` | Home, Notes | icon + word, never color alone |
 | `ResearchCard` | Home, Research | whole card is one `<a>` |
-| `PublicationList` | Home, CV | groups, continuous numbering, bolds name |
+| `PublicationList` | Home, Research, CV | groups, continuous numbering, bolds name |
 | `QuoteMarquee` | About | CSS-only animation, duplicate list `aria-hidden` |
 | `TimelineEntry` | Journey | date · dot · card |
 | `CvSection` | CV | olive title left, entries right |
-| `PlaceholderPage` | 4 stubs | title + sentence + "coming soon" |
+| `PlaceholderPage` | 2 stubs | title + sentence + "coming soon" |
 
 Components are like classes with a constructor (props) and a render
 method (the template). Each owns its scoped CSS.
@@ -81,3 +81,4 @@ method (the template). Each owns its scoped CSS.
 | 5 | JSON publications | 4 entries; trivial to edit | BibTeX (revisit at ~10) |
 | 6 | GitHub Pages + Actions | free, official Astro action, deploy on push | Netlify/Vercel (fine, but extra account) |
 | 7 | Manual minimal scaffold | no template cruft; you see every file and why it exists | `npm create astro` starter |
+| 8 | Publications as a section of `/research/` (2026-11-04) | short list; one link covers all research evidence; nav fits on phones | separate `/publications/` page; nested `/research/publications/`; "Research & Publications" nav label |

@@ -17,8 +17,8 @@ and how he thinks.
 | — | Kawser (content author) | Add/edit content by editing Markdown/JSON only |
 
 ## 3. Scope
-**In (v1):** Home, About, CV, Journey; placeholder pages for Sketch
-Board, Research, Notes, Publications; deploy to GitHub Pages.
+**In (v1):** Home, Research (+ one page per write-up), About, CV, Journey; placeholder pages for
+Sketch Board and Notes; deploy to GitHub Pages.
 **Out (v1):** light theme, MDX, D3, three.js, BibTeX, generated OG
 images, RSS, analytics, comments, CMS, backend.
 
@@ -26,13 +26,15 @@ images, RSS, analytics, comments, CMS, backend.
 | ID | Requirement |
 |---|---|
 | FR-01 | Every page shares a header (wordmark + nav) and footer (copyright, contact links). |
-| FR-02 | Nav order: Sketch Board, Research, Notes, Publications, About, Journey, CV. Current page marked with `aria-current="page"` and olive/bold. |
+| FR-02 | Nav order: Sketch Board, Research, Notes, About, Journey, CV. Current page marked with `aria-current="page"` and olive/bold. |
 | FR-03 | Home shows hero, status legend, 3 latest research cards, notes + paper notes, publications + "Now", closing CTA. |
 | FR-04 | About shows intro + portrait, 3 research-interest cards, path so far, what I'm looking for, quotes marquee. |
 | FR-05 | CV shows header with contact + PDF download link, and 8 sections (see pages.md). PDF is a static file, not generated. |
 | FR-06 | Journey shows entries grouped by year, newest first, with tag filter chips. All entries visible without JavaScript. |
 | FR-07 | Placeholder pages render title, one sentence, "coming soon". No broken nav link. |
-| FR-08 | Publications render from one JSON file on both Home and CV; Kawser's name bolded automatically. |
+| FR-13 | Research page shows Publications first (anchor `#publications`), then all published write-ups as cards, newest first. |
+| FR-14 | Each published write-up has its own page at `/research/<slug>/` showing title, status, topic, dates and the Markdown body; every research card links there. |
+| FR-08 | Publications render from one JSON file on Home, Research and CV; Kawser's name bolded automatically. |
 | FR-09 | Profile data (name, email, links, "Now") comes from one file, used everywhere it appears. |
 | FR-10 | Invalid content (missing field, wrong tag, bad date) fails the build with a clear message. |
 | FR-11 | Each page has its own `<title>`, meta description, Open Graph title/description/image; site has a favicon. |

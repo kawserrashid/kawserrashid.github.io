@@ -1,0 +1,11 @@
+{
+  "title": "Research",
+  "intro": "[One sentence on what this page collects: published papers first, then write-ups of ongoing and finished work.]",
+  "publications": {
+    "title": "Publications"
+  },
+  "writeups": {
+    "title": "Write-ups",
+    "hint": "Question → method → results → what I learned"
+  }
+}
